@@ -12,16 +12,17 @@ const SignUp = () => {
                     <input type="text" placeholder="Name" />
                 </div>
                 <div className="input">
-                    <input type="email" placeholder="Email"/>
+                    <input type="email" placeholder="Email" />
                 </div>
                 <div className="input">
-                    <input type="password" placeholder="Password"/>
+                    <input type="password" placeholder="Password" />
                 </div >
             </div >
             <div className="submit-container">
-                <div className="submit">Sign Up</div>
+                <button className="submit btn">Sign Up</button>
             </div>
         </div >
     )
 }
+
 export default SignUp;

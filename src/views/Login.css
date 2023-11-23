@@ -73,5 +73,6 @@
     border-radius: 50px;
     font-size: 19px;
     font-weight: 700;
-    cursor: pointer
+    cursor: pointer;
+    margin: auto;
 }
