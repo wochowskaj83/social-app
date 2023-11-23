@@ -5,7 +5,7 @@ import Post from "../components/Post";
 
 
 
-const Home = () => {
+const Home = (props) => {
     const [posts, setPosts] = useState([])
 
     const getLatestPosts = () => {
@@ -34,9 +34,7 @@ const Home = () => {
 
     useEffect(() => {
         getLatestPosts();
-
-    }, [])
-    console.log(posts)
+    }, [props.user])
 
     return (
         <div className="home">
