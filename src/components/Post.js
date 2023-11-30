@@ -7,6 +7,7 @@ const Post = (props) => {
 
     const [likesCount, setLikesCount] = useState(props.post.likes.length)
     const [deleteModalVisible, setDeleteModalVisible] = useState(false)
+    const [doesUserLiked, setDoesUserLiked] = useState(props.post.likes.filter(like => like.username === props.user?.username).length !== 0)
 
     const deletePost = (id) => {
         axios
@@ -16,13 +17,24 @@ const Post = (props) => {
             .then((res) => {
                 console.log(res.data)
                 props.setPosts((posts) => {
-                    return posts.filter(post=>post.id !== res.data.post_id)
+                    return posts.filter(post => post.id !== res.data.post_id)
                 })
             })
             .catch((error) => {
                 console.error(error);
             })
     }
+
+    const likePost = (id, isLiked) => {
+        axios
+            .post("https://akademia108.pl/api/social-app/post/" + (isLiked ? 'dislike' : 'like'), {
+                post_id: id
+            }).then(() => {
+                setLikesCount(likesCount + (isLiked ? -1 : 1))
+                setDoesUserLiked(!isLiked)
+            })
+    }
+
     return (
         <div className="post">
             <div className="avatar">
@@ -36,8 +48,11 @@ const Post = (props) => {
                 <div className="postContent">{props.post.content}</div>
                 <div className="likes">
                     {props.user?.username === props.post.user.username && (
-                    <button className="btn" onClick={()=> setDeleteModalVisible(true)}>Delete</button>
+                        <button className="btn" onClick={() => setDeleteModalVisible(true)}>Delete</button>
                     )}
+
+                    {props.user && <button className="btn " onClick={() => likePost(props.post.id, doesUserLiked)}>{doesUserLiked ? "Dislike" : "Like"}</button>}
+
                     {likesCount}
                 </div>
             </div>
@@ -45,8 +60,8 @@ const Post = (props) => {
             {deleteModalVisible && (
                 <div className='deleteConfirmation'>
                     <h3>Are you sure you want to delete post?</h3>
-                    <button className='btn yes'onClick={()=>deletePost (props.post.id) }>Yes</button>
-                    <button className='btn no'onClick={()=> setDeleteModalVisible(false)}>No</button>
+                    <button className='btn yes' onClick={() => deletePost(props.post.id)}>Yes</button>
+                    <button className='btn no' onClick={() => setDeleteModalVisible(false)}>No</button>
                 </div>
             )}
         </div>
