@@ -10,21 +10,21 @@ const AddPost = (props) => {
     const addPost = (e) => {
         e.preventDefault();
 
-        if(!postContent) {
+        if (!postContent) {
             return;
         }
-        
+
         axios.post("https://akademia108.pl/api/social-app/post/add", {
             content: postContent
         })
-        .then((res) => {
-            props.getPrevPosts()
-            setPostContent('');
+            .then((res) => {
+                props.getPrevPosts()
+                setPostContent('');
 
-        })
-        .catch((error) => {
-            console.error(error);
-        });
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     }
 
     return (

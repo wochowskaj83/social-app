@@ -53,11 +53,11 @@ const Home = (props) => {
 
     return (
         <div className="home">
-            {props.user && <AddPost getPrevPosts={getPrevPosts}/>}
+            {props.user && <AddPost getPrevPosts={getPrevPosts} />}
             {props.user && <FollowRecommendations user={props.user} getLatestPosts={getLatestPosts} posts={posts} />}
             <div className="postList">
                 {posts.map((post) => {
-                    return <Post post={post} key={post.id} user={props.user} setPosts={setPosts} getLatestPosts={getLatestPosts}/>;
+                    return <Post post={post} key={post.id} user={props.user} setPosts={setPosts} getLatestPosts={getLatestPosts} />;
                 })}
                 <button className="btn loadMore" onClick={getNextPosts}>Load more</button>
             </div>
